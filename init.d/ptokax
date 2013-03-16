@@ -1,0 +1,69 @@
+#!/bin/sh
+# Start/stop/restart the services for PtokaX.
+PTOKAXPATH='/etc/ptokax'
+
+ptokax_start() {
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+/usr/sbin/ptokax -d -c $PTOKAXPATH
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+ANSWER='[FAIL]'
+else
+ANSWER='[OK]'
+fi
+echo "Starting PtokaX $ANSWER"
+else
+echo "DC PtokaX HuB server is already running... Start failed!"
+fi
+}
+ptokax_stop() {
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+echo "DC PtokaX HuB server isn't running... Stop failed!"
+else
+kill `ps xu | grep "ptokax" | grep "$PTOKAXPATH" | grep -v "grep" | awk '{print $2}'`
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+ANSWER='[OK]'
+else
+ANSWER='[FAIL]'
+fi
+echo "Stoping PtokaX $ANSWER"
+fi
+}
+ptokax_restart() {
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+/usr/sbin/ptokax -d -c $PTOKAXPATH
+else
+kill `ps xu | grep "ptokax" | grep "$PTOKAXPATH" | grep -v "grep" | awk '{print $2}'`
+/usr/sbin/ptokax -d -c $PTOKAXPATH
+fi
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+ANSWER='[FAIL]'
+else
+ANSWER='[OK]'
+fi
+echo "Restarting PtokaX $ANSWER"
+}
+ptokax_status() {
+if [ `ps ax | grep "ptokax -d -c $PTOKAXPATH" | grep -v "grep" | wc -l` = 0 ]; then
+echo "No DC PtokaX HuB running..."
+else
+echo "DC PtokaX HuB server running..."
+fi
+}
+
+case "$1" in
+'start')
+ptokax_start
+;;
+'stop')
+ptokax_stop
+;;
+'status')
+ptokax_status
+;;
+'restart')
+ptokax_restart
+;;
+*)
+# Default is "start", for backwards compatibility with previous
+echo "start|stop|status|restart"
+esac
