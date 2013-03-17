@@ -41,7 +41,7 @@ tProfiles = {	-- Настройки прав доступа
 }
 
 tNicks = {	-- Разрешенные ники
-	["Admin"] = y,
+	["RemoteAdmin"] = y,
 }
 
 tIPs = {	-- Разрешенные IP
