@@ -101,13 +101,14 @@ checkif "Ты уверен, что хочешь запустить это?" || e
 cat <<'EOF'
 Выбери версию PtokaX которую хотите установить: 
 -----------------------------------------------
-   1) PtokaX 0.5.0.0
-   2) PtokaX 0.4.2.0
-   3) PtokaX 0.4.1.2
-   4) PtokaX 0.4.1.1
-   5) PtokaX 0.4.1.0
+   1) PtokaX 0.5.0.1
+   2) PtokaX 0.5.0.0
+   3) PtokaX 0.4.2.0
+   4) PtokaX 0.4.1.2
+   5) PtokaX 0.4.1.1
+   6) PtokaX 0.4.1.0
 EOF
-input "Введите индекс версии: " "12345"
+input "Введите индекс версии: " "123456"
 clear
 
 echo "========================================="
@@ -124,10 +125,11 @@ read rootpas
 echo -n "Начало установки требуемых программ...              "
 case $cRes in
 1) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
-2) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+2) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
 3) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
 4) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
 5) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+6) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
 esac
 echo "OK"
 
@@ -159,11 +161,12 @@ wget --output-document=tinyxml.zip http://sourceforge.net/projects/tinyxml/files
 echo -n "."
 # Скачиваем исходники ptokax в зависимости от выбраной версии
 case $cRes in
-1) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.5.0.0-nix-src.tgz >> ../log.txt 2>&1;;
-2) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.2.0-nix-src.tgz >> ../log.txt 2>&1;;
-3) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.2-nix-src.tgz >> ../log.txt 2>&1;;
-4) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.1-posix-src.tgz >> ../log.txt 2>&1;;
-5) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.0-posix-src.tgz >> ../log.txt 2>&1;;
+1) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.5.0.1-nix-src.tgz >> ../log.txt 2>&1;;
+2) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.5.0.0-nix-src.tgz >> ../log.txt 2>&1;;
+3) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.2.0-nix-src.tgz >> ../log.txt 2>&1;;
+4) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.2-nix-src.tgz >> ../log.txt 2>&1;;
+5) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.1-posix-src.tgz >> ../log.txt 2>&1;;
+6) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.0-posix-src.tgz >> ../log.txt 2>&1;;
 esac
 echo -n "."
 # Скачиваем скрипт для запуски хаба
