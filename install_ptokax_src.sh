@@ -157,20 +157,20 @@ cd $dirName/
 
 echo -n "Скачиваем необходимые файлы"
 # Скачиваем исходники tinyxml
-wget --output-document=tinyxml.zip http://sourceforge.net/projects/tinyxml/files/latest/download >> ../log.txt 2>&1
+wget --output-document=tinyxml.zip https://raw.github.com/den67rus/ptokax-install-source/master/src/tinyxml/tinyxml_2_6_2.zip >> ../log.txt 2>&1
 echo -n "."
 # Скачиваем исходники ptokax в зависимости от выбраной версии
 case $cRes in
-1) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.5.0.1-nix-src.tgz >> ../log.txt 2>&1;;
-2) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.5.0.0-nix-src.tgz >> ../log.txt 2>&1;;
-3) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.2.0-nix-src.tgz >> ../log.txt 2>&1;;
-4) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.2-nix-src.tgz >> ../log.txt 2>&1;;
-5) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.1-posix-src.tgz >> ../log.txt 2>&1;;
-6) wget --output-document=ptokax.tgz http://www.czdc.org/PtokaX/0.4.1.0-posix-src.tgz >> ../log.txt 2>&1;;
+1) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.5.0.1-nix-src.tgz >> ../log.txt 2>&1;;
+2) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.5.0.0-nix-src.tgz >> ../log.txt 2>&1;;
+3) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.4.2.0-nix-src.tgz >> ../log.txt 2>&1;;
+4) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.4.1.2-nix-src.tgz >> ../log.txt 2>&1;;
+5) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.4.1.1-posix-src.tgz >> ../log.txt 2>&1;;
+6) wget --output-document=ptokax.tgz https://raw.github.com/den67rus/ptokax-install-source/master/src/ptokax/0.4.1.0-posix-src.tgz >> ../log.txt 2>&1;;
 esac
 echo -n "."
 # Скачиваем скрипт для запуски хаба
-wget --output-document=ptokax https://raw.github.com/DEN007/ptokax-install-source/master/init.d/ptokax >> ../log.txt 2>&1
+wget --output-document=ptokax https://raw.github.com/den67rus/ptokax-install-source/master/init.d/ptokax >> ../log.txt 2>&1
 echo -n "."
 echo "                      OK"
 
@@ -397,7 +397,7 @@ checkif "Выполним установку скрипта PXControl, инач�
 
 # Скачиваем скрипт PXControl
 echo -n "Скачиваем скрипт PXControl."
-wget --output-document=PXControl_Server.lua https://raw.github.com/DEN007/ptokax-install-source/master/lua/PXControl_Server.lua >> ../log.txt 2>&1
+wget --output-document=PXControl_Server.lua https://raw.github.com/den67rus/ptokax-install-source/master/lua/PXControl_Server.lua >> ../log.txt 2>&1
 echo -n "."
 echo $rootpas | sudo -S mv PXControl_Server.lua /etc/ptokax/scripts/ >> ../log.txt 2>&1 | exit
 echo -n "."
@@ -560,7 +560,7 @@ echo "          был запущен скрипт."
 echo ""
 echo ""
 echo "             Лицензия: GPL v3"
-echo "https://github.com/DEN007/ptokax-install-source"
+echo "https://github.com/den67rus/ptokax-install-source"
 echo "        (c) develop by den007 2013"
 echo "             den007@smol-hub.net    "
 echo "========================================="
