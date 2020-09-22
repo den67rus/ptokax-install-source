@@ -118,18 +118,14 @@ echo "========================================="
 echo "Логирование вывода скрипта установки ptokax: " > log.txt
 chmod 666 log.txt
 
-# Спрашиваем root пароль чтобы в дальнейшем его знать и выполнять команды
-echo -n "Введите пароль суперпользователя (root): "
-read rootpas
-
 echo -n "Начало установки требуемых программ...              "
 case $cRes in
-1) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
-2) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
-3) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
-4) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
-5) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
-6) echo $rootpas | sudo -S apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+1) apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
+2) apt-get install -y g++ make liblua5.2 liblua5.2-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit ;;
+3) apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+4) apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+5) apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
+6) apt-get install -y g++ make liblua5.1 liblua5.1-dev zlib1g zlib1g-dbg zlib1g-dev psutils wget unzip >> log.txt 2>&1 | exit;;
 esac
 echo "OK"
 
@@ -299,10 +295,10 @@ input "Введите индекс действия: " "12345"
 
 echo -n "Выполнение операций с PtokaX...                     "
 case $cRes in
-1) echo $rootpas | sudo -S make install >> ../log.txt 2>&1 | exit;;
-2) echo $rootpas | sudo -S make upgrade >> ../log.txt 2>&1 | exit;;
-3) echo $rootpas | sudo -S make reinstall >> ../log.txt 2>&1 | exit;;
-4) echo $rootpas | sudo -S make uninstall >> ../log.txt 2>&1 | exit
+1) make install >> ../log.txt 2>&1 | exit;;
+2) make upgrade >> ../log.txt 2>&1 | exit;;
+3) make reinstall >> ../log.txt 2>&1 | exit;;
+4) make uninstall >> ../log.txt 2>&1 | exit
 echo "OK"
 sayWait
 exit;;
@@ -327,17 +323,17 @@ checkif "Произвести предварительную настройку,
 
 # Запускаем сервер чтобы создались файлы с настройками
 echo -n "Пробуем запустить сервер PtokaX."
-echo $rootpas | sudo -S /etc/init.d/ptokax start >> ../log.txt 2>&1 | exit
+/etc/init.d/ptokax start >> ../log.txt 2>&1 | exit
 echo -n "."
 sleep 3
 echo -n "."
-echo $rootpas | sudo -S /etc/init.d/ptokax stop >> ../log.txt 2>&1 | exit
+/etc/init.d/ptokax stop >> ../log.txt 2>&1 | exit
 echo "                  OK"
 # Правим конфиги
 # создаем копию файла с которой будим дальше работать
 SettingFilename=Settings.xml.edit
-echo $rootpas | sudo -S cp /etc/ptokax/cfg/Settings.xml $SettingFilename >> ../log.txt 2>&1 | exit
-echo $rootpas | sudo -S chmod 666 $SettingFilename >> ../log.txt 2>&1 | exit
+cp /etc/ptokax/cfg/Settings.xml $SettingFilename >> ../log.txt 2>&1 | exit
+chmod 666 $SettingFilename >> ../log.txt 2>&1 | exit
 fi
 echo "======Приступаем к настройке хаба.======="
 echo " "
@@ -375,7 +371,7 @@ input "Введите индекс действия: " "123"
 
 echo -n "Выполнение операции сохранения настроек PtokaX...   "
 case $cRes in
-1) echo $rootpas | sudo -S mv $SettingFilename /etc/ptokax/cfg/Settings.xml >> ../log.txt 2>&1 | exit;;
+1) mv $SettingFilename /etc/ptokax/cfg/Settings.xml >> ../log.txt 2>&1 | exit;;
 2) clear
 settingsHub "2";;
 3) exit;;
@@ -399,9 +395,9 @@ checkif "Выполним установку скрипта PXControl, инач�
 echo -n "Скачиваем скрипт PXControl."
 wget --output-document=PXControl_Server.lua https://raw.github.com/den67rus/ptokax-install-source/master/lua/PXControl_Server.lua >> ../log.txt 2>&1
 echo -n "."
-echo $rootpas | sudo -S mv PXControl_Server.lua /etc/ptokax/scripts/ >> ../log.txt 2>&1 | exit
+mv PXControl_Server.lua /etc/ptokax/scripts/ >> ../log.txt 2>&1 | exit
 echo -n "."
-echo $rootpas | sudo -S chmod 666 /etc/ptokax/scripts/PXControl_Server.lua >> ../log.txt 2>&1 | exit
+chmod 666 /etc/ptokax/scripts/PXControl_Server.lua >> ../log.txt 2>&1 | exit
 echo "                       OK"
 
 # Включаем скрипт в настройках PtokaX
@@ -413,13 +409,13 @@ echo "        <Name>PXControl_Server.lua</Name>">>Scripts.xml
 echo "        <Enabled>1</Enabled>">>Scripts.xml
 echo "    </Script>">>Scripts.xml
 echo "</Scripts>">>Scripts.xml
-echo $rootpas | sudo -S mv Scripts.xml /etc/ptokax/cfg/Scripts.xml >> ../log.txt 2>&1 | exit
-echo $rootpas | sudo -S chmod 666 /etc/ptokax/cfg/Scripts.xml >> ../log.txt 2>&1 | exit
+mv Scripts.xml /etc/ptokax/cfg/Scripts.xml >> ../log.txt 2>&1 | exit
+chmod 666 /etc/ptokax/cfg/Scripts.xml >> ../log.txt 2>&1 | exit
 echo "              OK"
 
 # Установим библиотеку LuaFileSystem
 echo -n "Устанавливаем библиотеку LuaFileSystem...           "
-echo $rootpas | sudo -S apt-get install -y liblua5.1-filesystem0 liblua5.1-filesystem-dev >> ../log.txt 2>&1 | exit
+apt-get install -y liblua5.1-filesystem0 liblua5.1-filesystem-dev >> ../log.txt 2>&1 | exit
 echo "OK"
 
 # Регистрируем пользователя для PXControl
@@ -448,8 +444,8 @@ echo "        <Password>$AdminPas</Password>">>RegisteredUsers.xml
 echo "        <Profile>0</Profile>">>RegisteredUsers.xml
 echo "    </RegisteredUser>">>RegisteredUsers.xml
 echo "</RegisteredUsers>">>RegisteredUsers.xml
-echo $rootpas | sudo -S mv RegisteredUsers.xml /etc/ptokax/cfg/RegisteredUsers.xml >> ../log.txt 2>&1 | exit
-echo $rootpas | sudo -S chmod 666 /etc/ptokax/cfg/RegisteredUsers.xml >> ../log.txt 2>&1 | exit
+mv RegisteredUsers.xml /etc/ptokax/cfg/RegisteredUsers.xml >> ../log.txt 2>&1 | exit
+chmod 666 /etc/ptokax/cfg/RegisteredUsers.xml >> ../log.txt 2>&1 | exit
 echo "Пользователь успешно добавлен в базу PtokaX...      OK"
 echo -n "Создание файла с логином и паролем...               "
 echo "===================================================">../Настройки_хаба.txt
@@ -472,7 +468,7 @@ echo "       5. Завершающая стадия"
 echo "========================================="
 echo " "
 echo -n "Запускаем PtokaX...                                 "
-echo $rootpas | sudo -S /etc/init.d/ptokax start >> ../log.txt 2>&1 | exit
+/etc/init.d/ptokax start >> ../log.txt 2>&1 | exit
 echo "OK"
 echo -n "Пробуем подключится к хабу...                       "
 wget --output-document=test.txt "http://${SetArray[2]}:${SetArray[3]}" >> ../log.txt 2>&1
@@ -521,7 +517,7 @@ if [ "statusHub" = 1 ] ; then
 checkifVar=1
 checkif "Хаб все еще запущен и работает, выключить его?" || checkifVar=0
    if [ "$checkifVar" = "1" ] ; then
-      echo $rootpas | sudo -S /etc/init.d/ptokax stop >/dev/null 2>&1 | exit
+      /etc/init.d/ptokax stop >/dev/null 2>&1 | exit
       echo "Хаб остановлен!"
    else
       echo "Хаб продолжает работать!"
@@ -530,7 +526,7 @@ else
 checkifVar=1
 checkif "Хаб не получилось запустить ранее, попробывать сейчас?" || checkifVar=0
    if [ "$checkifVar" = "1" ] ; then
-      echo $rootpas | sudo -S /etc/init.d/ptokax start >/dev/null 2>&1 | exit
+      /etc/init.d/ptokax start >/dev/null 2>&1 | exit
       echo "Хаб возможно запустился!"
    else
       echo "Хаб не включали!"
